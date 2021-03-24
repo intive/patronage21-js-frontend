@@ -1,6 +1,8 @@
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 
+const thisHas = ()=>{ console.log("wrong",'code style')};
+
 const Title = styled.h1`
     font-size: 50px;
     color: ${({ theme }) => theme.colors.primary};
