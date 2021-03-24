@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "standard:test": "standard",
+    "standard:fix": "standard --fix"
   },
   "dependencies": {
     "next": "latest",
@@ -15,7 +17,8 @@
     "styled-components": "^5.0.0"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "^1.8.0"
+    "babel-plugin-styled-components": "^1.8.0",
+    "standard": "^16.0.3"
   },
   "license": "MIT"
 }
