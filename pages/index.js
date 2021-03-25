@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button'
 
 const Title = styled.h1`
     font-size: 50px;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.customPalette.colors.primary};
 `
 
 export default function Home () {
