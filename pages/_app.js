@@ -1,6 +1,6 @@
 import { RecoilRoot } from 'recoil'
 import { ThemeProvider } from 'styled-components'
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core'
+import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@material-ui/core'
 import GlobalStyle from '../styles/global'
 import theme from '../styles/theme'
 
@@ -9,6 +9,7 @@ export default function App ({ Component, pageProps }) {
     <>
       <MuiThemeProvider theme={theme}>
         <ThemeProvider theme={theme}>
+          <CssBaseline />
           <GlobalStyle />
           <RecoilRoot>
             <Component {...pageProps} />
