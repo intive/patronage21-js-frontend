@@ -27,7 +27,8 @@ const MuiTheme = createMuiTheme({
 
 const customPalette = {
   colors: {
-    primary: colors.pink
+    primary: colors.pink,
+    secondary: colors.blue
   }
 }
 
