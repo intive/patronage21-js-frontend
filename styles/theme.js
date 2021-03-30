@@ -7,7 +7,7 @@ const colors = {
   green: '#89ca35',
   red: '#f30e2b',
   grey: '#9f9f9f',
-  white1: '#efefef',
+  white1: '#ffffff',
   white2: '#ebf8ff'
 }
 
@@ -17,17 +17,20 @@ const MuiTheme = createMuiTheme({
       primary: colors.black
     },
     primary: {
-      main: colors.pink
+      main: colors.pink,
+      contrastText: colors.white1
     },
     secondary: {
-      main: colors.blue
+      main: colors.blue,
+      contrastText: colors.white1
     }
   }
 })
 
 const customPalette = {
   colors: {
-    primary: colors.pink
+    primary: colors.pink,
+    secondary: colors.blue
   }
 }
 
