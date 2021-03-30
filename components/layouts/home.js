@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const Wrapper = styled.div`
   width: 100%;
   min-height: 100vh;
 `
 
-const Layout = ({children}) => {
+const Layout = ({ children }) => {
   return (
     <Wrapper>
       {children}
@@ -14,4 +14,4 @@ const Layout = ({children}) => {
   )
 }
 
-export default Layout;
+export default Layout
