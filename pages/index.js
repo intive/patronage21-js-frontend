@@ -1,18 +1,22 @@
-import styled from 'styled-components'
-import Button from '@material-ui/core/Button'
+import Layout from '../components/layouts/home'
+import Content from '../components/elements/content'
+import Head from 'next/head'
 
-const Title = styled.h1`
-    font-size: 50px;
-    color: ${({ theme }) => theme.customPalette.colors.primary};
-`
-
-export default function Home () {
+export default function ({
+  title = 'Patron-a-tive'
+}) {
   return (
-    <>
-      <Title>Intivo Patronum</Title>
-      <Button variant='contained' color='secondary'>
-        przykładowy button z Material UI
-      </Button>
-    </>
+    <div>
+      <Head>
+        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta charSet='utf-8' />
+        <title>{title}</title>
+      </Head>
+      <Layout>
+        <Content>
+          tu kontent
+        </Content>
+      </Layout>
+    </div>
   )
 }
