@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { FormControl, InputLabel, InputAdornment, IconButton, OutlinedInput } from '@material-ui/core'
+import { FormControl, InputAdornment, IconButton, OutlinedInput } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { Email, Header, Information, StyledButton, VerificationScreenWrapper } from './style'
+import { Email, Header, Information, Label, StyledButton, VerificationScreenWrapper } from './style'
 
 export default function EmailVerification ({ email }) {
   const [code, setCode] = useState('')
@@ -30,7 +30,7 @@ export default function EmailVerification ({ email }) {
         <Email>{email}</Email>
       </Information>
       <FormControl variant='outlined' size='small'>
-        <InputLabel htmlFor='outlined-adornment-password' style={{ color: '#9f9f9f' }}>Kod *</InputLabel>
+        <Label htmlFor='outlined-adornment-password'>Kod *</Label>
         <OutlinedInput
           id='outlined-adornment-password'
           type={showCode ? 'text' : 'password'}
@@ -53,16 +53,12 @@ export default function EmailVerification ({ email }) {
           labelWidth={40}
         />
         <StyledButton
-          fullWidth
-          variant='contained'
           color='primary'
           disabled={isDisabled}
         >
           Zatwierdź kod
         </StyledButton>
         <StyledButton
-          fullWidth
-          variant='contained'
           color='secondary'
         >
           Nie otrzymałem/am kodu

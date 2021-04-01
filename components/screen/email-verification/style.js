@@ -1,6 +1,6 @@
-import { Button } from '@material-ui/core'
-import { withStyles } from '@material-ui/core/styles'
 import styled from 'styled-components'
+import { InputLabel } from '@material-ui/core'
+import Button from '../../elements/button'
 
 export const VerificationScreenWrapper = styled.div`
   display: flex;
@@ -25,14 +25,15 @@ export const Information = styled.p`
 export const Email = styled.span`
   display: block;
 `
-export const StyledButton = withStyles({
-  root: {
-    textTransform: 'none',
-    fontSize: 12,
-    padding: '8px 5px',
-    borderRadius: '40px',
-    fontWeight: 'bold',
-    marginTop: '20px',
-    width: '80%'
-  }
-})(Button)
+
+export const StyledButton = styled(Button)`
+    margin-top: 20px;
+    width: 80%;
+`
+
+export const Label = styled(InputLabel)`
+ color:${({ theme }) => theme.customPalette.input.label};
+ &.Mui-focused {
+   color: ${({ theme }) => theme.customPalette.input.label};
+ }
+`
