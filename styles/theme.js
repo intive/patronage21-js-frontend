@@ -31,6 +31,9 @@ const customPalette = {
   colors: {
     primary: colors.pink,
     secondary: colors.blue
+  },
+  input: {
+    label: colors.grey
   }
 }
 
