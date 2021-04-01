@@ -1,13 +1,34 @@
-import {SuccessPageWrapper, Title} from './style.js'
+import {SuccessPageWrapper, Title, Description, SuccessButton, SuccessImage} from './style.js';
+import Image from 'next/image';
+import Link from 'next/link';
+import PropTypes from 'prop-types';
 
-// import patroCat from './assets/patronage.png'
-export default function SuccessPage ({ title, description, buttonLabel }) {
+export default function SuccessPage ({ title, description, buttonLabel, buttonRedirect}) {
     return (
         <SuccessPageWrapper>
             <Title>{title}</Title>
-            <h2>{description}</h2>
-            <a href='#'>{buttonLabel}</a>
-            <img src='' alt=''/>
+            <Description>{description}</Description>
+            
+            <Link href={buttonRedirect} passHref>
+                <SuccessButton variant='contained' color='primary'>{buttonLabel}</SuccessButton>
+            </Link>
+            
+            <SuccessImage>
+                <Image
+                    src="/patrocat.png"
+                    alt="Patrocat"
+                    width='300'
+                    height='300'
+            />
+            </SuccessImage>
         </SuccessPageWrapper>
     )
+}
+
+SuccessPage.propTypes = {
+    title: PropTypes.string.isRequired
+}
+SuccessPage.defaultProps = {
+    buttonLabel: 'Zamknij',
+    buttonRedirect: '/'
 }
