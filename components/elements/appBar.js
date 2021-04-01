@@ -41,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     position: 'relative',
-    display: "flex",
+    display: 'flex',
     alignItems: 'center',
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     border: `1px solid ${fade(theme.palette.text.primary, 0.2)}`,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
     // vertical padding + font size from searchIcon
     paddingLeft: theme.spacing(1),
     transition: theme.transitions.create('width'),
-    width: `calc(100% - ${theme.spacing(4)}px)`,
+    width: `calc(100% - ${theme.spacing(4)}px)`
 
   },
   sectionDesktop: {
