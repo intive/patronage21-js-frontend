@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { ErrorScreenWrapper, StyledButton, ErrorTitle, StyledImage } from './style'
 import Image from 'next/image'
 
-export default function ErrorPage({ title, description, buttonTitle, buttonHref, isReturn }) {
+export default function ErrorPage ({ title, description, buttonTitle, buttonHref, isReturn }) {
   const router = useRouter()
   return (
     <ErrorScreenWrapper>
@@ -28,4 +28,4 @@ export default function ErrorPage({ title, description, buttonTitle, buttonHref,
       </StyledImage>
     </ErrorScreenWrapper>
   )
-}
+} s
