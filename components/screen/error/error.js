@@ -28,4 +28,4 @@ export default function ErrorPage ({ title, description, buttonTitle, buttonHref
       </StyledImage>
     </ErrorScreenWrapper>
   )
-} s
+}
