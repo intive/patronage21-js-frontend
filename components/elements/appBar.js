@@ -41,7 +41,9 @@ const useStyles = makeStyles((theme) => ({
   },
   search: {
     position: 'relative',
-    borderRadius: theme.shape.borderRadius,
+    display: "flex",
+    alignItems: 'center',
+    justifyContent: "space-between",
     border: `1px solid ${fade(theme.palette.text.primary, 0.2)}`,
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
@@ -52,14 +54,12 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
-      width: '40%'
+      width: '35%'
     }
   },
   searchIcon: {
-    // backgroundColor: 'blue',
     padding: theme.spacing(0, 2),
     height: '100%',
-    position: 'absolute',
     pointerEvents: 'none',
     display: 'flex',
     alignItems: 'center',
@@ -67,17 +67,17 @@ const useStyles = makeStyles((theme) => ({
     color: fade(theme.palette.text.primary, 0.5)
   },
   inputRoot: {
-    color: 'inherit'
+    color: 'inherit',
+    width: '100%',
+    fontSize: '10px'
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingLeft: theme.spacing(1),
     transition: theme.transitions.create('width'),
-    width: 'auto',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch'
-    }
+    width: `calc(100% - ${theme.spacing(4)}px)`,
+
   },
   sectionDesktop: {
     display: 'none',
@@ -106,9 +106,6 @@ export default function CustomAppBar ({ onChange }) {
           <Toolbar className={classes.toolbar}>
             <Logo />
             <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
               <InputBase
                 placeholder='Wpisz czego szukasz'
                 onChange={onChange}
@@ -118,6 +115,9 @@ export default function CustomAppBar ({ onChange }) {
                 }}
                 inputProps={{ 'aria-label': 'search' }}
               />
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
             </div>
             <div className={classes.buttons}>
               <IconButton
