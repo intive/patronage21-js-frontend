@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { withStyles } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import styled from 'styled-components'
+import { withStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core'
 
 export const SuccessPageWrapper = styled.div``
 export const Title = styled.h3`
@@ -12,13 +12,13 @@ export const Description = styled.div`
     margin-bottom: 25px;
 `
 export const SuccessButton = withStyles({
-    root: {
-      textTransform: 'capitalize',
-      borderRadius: '40px',
-      fontSize: 14,
-      fontWeight: 'bold',
-      padding: '10px 30px'
-    }
+  root: {
+    textTransform: 'capitalize',
+    borderRadius: '40px',
+    fontSize: 14,
+    fontWeight: 'bold',
+    padding: '10px 30px'
+  }
 })(Button)
 
 export const SuccessImage = styled.div`
