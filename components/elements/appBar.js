@@ -12,7 +12,7 @@ import { fade } from '@material-ui/core/styles'
 import SearchBar from './search'
 
 const Wrapper = styled.div`
-  ${({ theme }) =>`
+  ${({ theme }) => `
     flex-grow: 1;
     margin-bottom: ${theme.spacing(3)}px
   `}
@@ -26,7 +26,7 @@ const StyledToolbar = styled(Toolbar)`
 `
 
 const Buttons = styled.div`
-          ${({ theme }) =>`
+          ${({ theme }) => `
   width: 100%;
   display: flex;
   align-items: center;
@@ -37,7 +37,6 @@ const Buttons = styled.div`
   }
   `}
 `
-
 
 export default function CustomAppBar () {
   return (

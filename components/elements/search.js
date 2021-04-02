@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const StyledSearch = styled('div').attrs({
   'aria-label': ({ aria }) => aria
 })`
-  ${({ theme }) =>`
+  ${({ theme }) => `
     position: relative; 
     display: flex;
     align-items: center;
@@ -19,7 +19,7 @@ const StyledSearch = styled('div').attrs({
   `}
 `
 const StyledInputBase = styled(InputBase)`
-  ${({ theme }) =>`
+  ${({ theme }) => `
     color: inherit;
     width: 100%;
     font-size: 1rem;
@@ -29,7 +29,7 @@ const StyledInputBase = styled(InputBase)`
 `
 
 const StyledSearchIcon = styled('div')`
-  ${({ theme }) =>`
+  ${({ theme }) => `
     padding: 0 16px;
     height: 100%;
     pointerEvents: none;
@@ -40,9 +40,8 @@ const StyledSearchIcon = styled('div')`
   `}
 `
 
-export default function SearchBar({ onChange, aria, placeholder= 'Wpisz czego szukasz', children }) {
-
-  return(
+export default function SearchBar ({ onChange, aria, placeholder = 'Wpisz czego szukasz', children }) {
+  return (
     <StyledSearch>
       <StyledInputBase
         placeholder={placeholder}
