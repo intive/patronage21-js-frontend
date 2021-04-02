@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const StyledButton = styled(MuiButton)`
     text-transform: none;
-    font-size: 12;
+    font-size: 14px;
     padding: 8px 5px;
     border-radius: 40px;
     font-weight: 600;
