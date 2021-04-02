@@ -1,22 +1,24 @@
-import Typography from '@material-ui/core/Typography'
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles'
+import styled from 'styled-components'
+import Typography from '@material-ui/core/Typography'
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    color: theme.palette.primary.main,
-    fontWeight: 400,
-    '& span': {
-      fontWeight: 600
-    }
-  }
-}))
 
-export default function Logo () {
-  const classes = useStyles()
+const StyledSpan = styled('span')`
+  font-weight: 600;
+`
+const StyledTypography = styled(Typography).attrs({
+  color: "primary",
+  variant: "h6",
+  noWrap: true
+})`
+  font-weight: 400;
+  width: 100%;
+`
+
+export default function Logo() {
   return (
-    <Typography className={classes.title} variant='h6' noWrap>
-      <span>Patron</span>-a-<span>tive</span>
-    </Typography>
+    <StyledTypography>
+      <StyledSpan>Patron</StyledSpan>-a-<StyledSpan>tive</StyledSpan>
+    </StyledTypography>
   )
 }
