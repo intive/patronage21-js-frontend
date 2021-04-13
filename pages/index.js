@@ -1,24 +1,9 @@
-import Layout from '../components/layouts/home'
-import Content from '../components/elements/content'
-import Head from 'next/head'
-import AppBar from '../components/elements/appBar'
+import Layout from '../components/layout'
 
-export default function ({
-  title = 'Patron-a-tive'
-}) {
+export default function Home () {
   return (
-    <div>
-      <Head>
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
-        <meta charSet='utf-8' />
-        <title>{title}</title>
-      </Head>
-      <Layout>
-        <AppBar />
-        <Content>
-          tu kontent
-        </Content>
-      </Layout>
-    </div>
+    <Layout>
+      <div>tu kontent</div>
+    </Layout>
   )
 }
