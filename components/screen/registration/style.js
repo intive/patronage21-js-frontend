@@ -41,7 +41,7 @@ export const StyledFormGroup = styled(FormGroup)`
 `
 
 export const StyledFormControlLabel = styled(FormControlLabel)`
-  margin: 10px 0;
+  margin: 6px 0;
   width: 100%;
 `
 
@@ -90,7 +90,12 @@ export const SubmitButton = styled(Button)`
     color: white;
   }
   @media (min-width: 1280px) {
-    width: 40%;
+    width: 30%;
     margin: 20px 0;
   }
+`
+export const ErrorText = styled.p`
+  font-size: 12px;
+  color: ${({ theme }) => theme.palette.error.main};
+  margin: 6px 0 0;
 `

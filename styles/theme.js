@@ -23,6 +23,9 @@ const MuiTheme = createMuiTheme({
     secondary: {
       main: colors.blue,
       contrastText: colors.white1
+    },
+    error: {
+      main: colors.red
     }
   }
 })
