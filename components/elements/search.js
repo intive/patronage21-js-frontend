@@ -46,7 +46,7 @@ export default function SearchBar ({ onChange, aria, placeholder = 'Wpisz czego 
       <StyledInputBase
         placeholder={placeholder}
         onChange={onChange}
-        aria={aria}
+        aria-label={aria}
       />
       <StyledSearchIcon>
         {children}
