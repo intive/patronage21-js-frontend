@@ -18,7 +18,7 @@ export const validationSchema = () => yup.object().shape({
     .required('Wpisz adres e-mail'),
 
   phone: yup.string()
-    .matches(/^[0-9]{8,14}$/, 'Niepoprawny numer telefonu')
+    .matches(/^[0-9]{9}$/, 'Niepoprawny numer telefonu')
     .required('Wpisz numer telefonu'),
 
   githubLink: yup.string()
