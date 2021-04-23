@@ -130,15 +130,15 @@ export default function FormRegistration () {
           {technologies.map((tech) => {
             return (
               <FormControlLabel
-                key={tech}
+                key={tech.name}
                 control={<Checkbox
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   name='technologies'
-                  value={tech}
+                  value={tech.value}
                   checkedIcon={<CheckBoxOutlinedIcon />}
                          />}
-                label={tech}
+                label={tech.name}
               />
             )
           })}

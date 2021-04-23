@@ -45,7 +45,25 @@ export const userPasswordFields = [
   }
 ]
 
-export const technologies = ['JavaScript', 'Java', 'QA', 'Mobile(Android)']
+export const technologies = [
+  {
+    name: 'JavaScript',
+    value: 'JS'
+  },
+  {
+    name: 'Java',
+    value: 'Java'
+  },
+  {
+    name: 'QA',
+    value: 'QA'
+  },
+  {
+    name: 'Mobile(Android)',
+    value: 'Mobile'
+  }
+]
+
 export const requiredCheckboxText =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
 export const regulations =
