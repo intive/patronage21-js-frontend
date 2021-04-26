@@ -6,10 +6,12 @@ export const validationSchema = () => yup.object().shape({
     .oneOf(['Pan', 'Pani']),
 
   firstName: yup.string()
+    .min(3, 'Imię jest za krótkie')
     .max(20, 'Imię jest za długie')
     .required('Wpisz imię'),
 
   lastName: yup.string()
+    .min(2, 'Nazwisko jest za krótkie')
     .max(20, 'Nazwisko jest za długie')
     .required('Wpisz nazwisko'),
 
