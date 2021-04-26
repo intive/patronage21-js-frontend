@@ -32,8 +32,31 @@ import {
   regulations
 } from './fields'
 import { ExpandMore } from '@material-ui/icons'
+import { API } from '../../../helpers/api'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 export default function FormRegistration () {
+  const router = useRouter()
+  const [error, setError] = useState('')
+
+  const handleSubmit = async (data) => {
+    const { email } = data
+    try {
+      const res = await API.post('register', { body: data })
+      if (res.ok) {
+        router.push({ pathname: '/', query: { email: email } })
+      } else if (res.status === 400) {
+        handleApiErrors(res.body.fields)
+        setError('Błąd rejestracji - proszę poprawić pola zaznaczone na czerwono')
+      } else {
+        setError('Nieudana rejestracja - błąd wewnętrzny serwera')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   const formik = useFormik({
     initialValues: {
       title: '',
@@ -51,9 +74,23 @@ export default function FormRegistration () {
     },
     validationSchema: validationSchema,
     onSubmit: values => {
-      console.log(values)
+      const {
+        passwordConfirm,
+        regulations,
+        information,
+        phone,
+        ...rest
+      } = values
+      rest.phone = +phone
+      handleSubmit(rest)
     }
   })
+
+  const handleApiErrors = apiErrors => {
+    Object.keys(apiErrors).map(field => {
+      return formik.setFieldError(field, apiErrors[field])
+    })
+  }
 
   const isButtonDisabled = () => {
     if (
@@ -78,7 +115,7 @@ export default function FormRegistration () {
   return (
     <>
       <LogoContainer>
-        <Logo src='/logo.jpg' alt='logo' />
+        <Logo src='/patronage-cat.svg' alt='logo' />
       </LogoContainer>
       <Subtitle>Zgłoś się do programu Patronative już dziś!</Subtitle>
       <Text>Wystarczy, że wypełnisz poniższy formularz zgłoszeniowy.</Text>
@@ -191,6 +228,7 @@ export default function FormRegistration () {
         >
           Załóż konto
         </SubmitButton>
+        {error && <ErrorText>{error}</ErrorText>}
       </Form>
     </>
   )

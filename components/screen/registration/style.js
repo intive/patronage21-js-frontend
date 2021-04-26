@@ -15,7 +15,6 @@ export const LogoContainer = styled.div`
   @media (min-width: 1280px) {
     position: absolute;
     width: 40%;
-    top: 30px;
     right: 20px;
   }
 `
