@@ -45,7 +45,7 @@ export default function FormRegistration () {
     try {
       const res = await API.post('register', { body: data })
       if (res.ok) {
-        router.push({ pathname: '/', query: { email: email } })
+        router.push({ pathname: '/weryfikacja', query: { email: email, id: res.body._id } })
       } else if (res.status === 400) {
         handleApiErrors(res.body.fields)
         setError('Błąd rejestracji - proszę poprawić pola zaznaczone na czerwono')
@@ -130,6 +130,7 @@ export default function FormRegistration () {
             labelId='title-select-label'
             id='title-select'
             color='secondary'
+            inputProps={{ MenuProps: { disableScrollLock: true } }}
             IconComponent={ExpandMore}
           >
             {titles.map((option) => {
