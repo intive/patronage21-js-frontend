@@ -5,7 +5,7 @@ import EmailVerification from '../components/screen/email-verification/email-ver
 function Home ({ router }) {
   return (
     <Layout>
-      <EmailVerification email={router.query.email || ''} />
+      <EmailVerification email={router.query.email} id={router.query.id} />
     </Layout>
   )
 }

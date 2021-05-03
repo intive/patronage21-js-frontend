@@ -5,7 +5,7 @@ import { Email, ErrorText, Header, Information, Label, StyledButton, Text, Verif
 import { useRouter } from 'next/router'
 import { API } from '../../../helpers/api'
 
-export default function EmailVerification ({ email }) {
+export default function EmailVerification ({ email, id }) {
   const [code, setCode] = useState('')
   const [isDisable, setIsDisable] = useState(true)
   const [errorMsg, setErrorMsg] = useState('')
@@ -27,8 +27,8 @@ export default function EmailVerification ({ email }) {
     setMessage('')
 
     try {
-      const res = await API.post('verification-code', { body: { email: email, code: +code } })
-      res.ok ? router.push('/rejestracja-sukces') : setErrorMsg(res.body.message)
+      const res = await API.put('activate', { body: { email: email, activationCode: +code } })
+      res.ok ? router.push('/rejestracja-sukces') : setErrorMsg('Wprowadzony kod jest niepoprawny')
     } catch {
       setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponwnie')
     }
@@ -39,8 +39,8 @@ export default function EmailVerification ({ email }) {
     setCode('')
 
     try {
-      const res = await API.post('resend-code', { body: { email: email } })
-      res.ok ? setMessage(res.body.message) : setMessage('Błąd podczas ponownego wysyłania kodu')
+      const res = await API.post(`sendActivationCode/${id}`)
+      res.ok ? setMessage(res.body) : setErrorMsg(res.body)
     } catch {
       setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponwnie')
     }
@@ -88,9 +88,11 @@ export default function EmailVerification ({ email }) {
 }
 
 EmailVerification.propTypes = {
-  email: PropTypes.string
+  email: PropTypes.string,
+  id: PropTypes.string
 }
 
 EmailVerification.defaultProps = {
-  email: ''
+  email: '',
+  id: ''
 }
