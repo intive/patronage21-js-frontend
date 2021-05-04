@@ -40,7 +40,7 @@ const StyledSearchIcon = styled('div')`
   `}
 `
 
-export default function SearchBar ({ onChange, aria, placeholder = 'Wpisz czego szukasz', children }) {
+export default function SearchBar ({ aria, onChange, placeholder = 'Wpisz czego szukasz', children }) {
   return (
     <StyledSearch>
       <StyledInputBase

@@ -37,3 +37,14 @@ export const Label = styled(InputLabel)`
    color: ${({ theme }) => theme.customPalette.input.label};
  }
 `
+
+export const ErrorText = styled.p`
+  font-size: 12px;
+  color: ${({ theme }) => theme.palette.error.main};
+  margin: 6px 0 0;
+`
+
+export const Text = styled.p`
+  font-size: 12px;
+  margin: 6px 0 0;
+`
