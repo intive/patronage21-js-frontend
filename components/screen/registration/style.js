@@ -41,7 +41,7 @@ export const StyledFormGroup = styled(FormGroup)`
 
 export const StyledFormControlLabel = styled(FormControlLabel)`
   margin: 6px 0;
-  width: 100%;
+  width: fit-content;
 `
 
 export const StyledMenuItem = styled(MenuItem)`
