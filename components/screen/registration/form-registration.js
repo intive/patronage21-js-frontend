@@ -177,6 +177,7 @@ export default function FormRegistration () {
                   checkedIcon={<CheckBoxOutlinedIcon />}
                          />}
                 label={tech.name}
+                style={{ width: 'fit-content' }}
               />
             )
           })}
