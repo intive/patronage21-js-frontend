@@ -1,69 +1,98 @@
-import { useState } from 'react'
-import { FormControl, InputAdornment, IconButton, OutlinedInput } from '@material-ui/core'
-import { Visibility, VisibilityOff } from '@material-ui/icons'
-import { Email, Header, Information, Label, StyledButton, VerificationScreenWrapper } from './style'
+import { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import { FormControl, OutlinedInput } from '@material-ui/core'
+import { Email, ErrorText, Header, Information, Label, StyledButton, Text, VerificationScreenWrapper } from './style'
+import { useRouter } from 'next/router'
+import { API } from '../../../helpers/api'
 
-export default function EmailVerification ({ email }) {
+export default function EmailVerification ({ email, id }) {
   const [code, setCode] = useState('')
-  const [showCode, setShowCode] = useState(false)
+  const [isDisable, setIsDisable] = useState(true)
+  const [errorMsg, setErrorMsg] = useState('')
+  const [message, setMessage] = useState('')
+  const router = useRouter()
 
-  const handleInputField = (e) => {
-    const code = parseInt(e.target.value)
-    if (isNaN(code)) {
-      setCode('')
-    } else {
-      setCode(code)
+  useEffect(() => {
+    setIsDisable(code.length !== 8)
+  }, [code])
+
+  const handleInput = (e) => {
+    const code = e.target.value
+
+    code.length <= 8 && !isNaN(code) && setCode(code)
+    code.length < 8 ? setErrorMsg('Wprowadzony kod jest zbyt krótki') : setErrorMsg('')
+  }
+
+  const handleSubmit = async () => {
+    setMessage('')
+
+    try {
+      const res = await API.put('activate', { body: { email: email, activationCode: +code } })
+      res.ok ? router.push('/rejestracja-sukces') : setErrorMsg('Wprowadzony kod jest niepoprawny')
+    } catch {
+      setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponwnie')
     }
   }
 
-  const handleClickShowPassword = () => {
-    setShowCode(!showCode)
-  }
+  const handleResend = async () => {
+    setErrorMsg('')
+    setCode('')
 
-  const isDisabled = code.toString().length !== 8
+    try {
+      const res = await API.post(`sendActivationCode/${id}`)
+      res.ok ? setMessage(res.body) : setErrorMsg(res.body)
+    } catch {
+      setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponwnie')
+    }
+  }
 
   return (
     <VerificationScreenWrapper>
       <Header>Weryfikacja adresu e-mail</Header>
+
       <Information>
-        Wpisz 8-cyfrowy kod, który został wysłany na adres:
-        <Email>{email}</Email>
+        Wpisz 8-cyfrowy kod, który został wysłany na adres: <Email>{email}</Email>
       </Information>
+
       <FormControl variant='outlined' size='small'>
         <Label htmlFor='outlined-adornment-password'>Kod *</Label>
         <OutlinedInput
           id='outlined-adornment-password'
-          type={showCode ? 'text' : 'password'}
+          type='text'
           value={code}
-          onChange={handleInputField}
+          onChange={handleInput}
           color='secondary'
           fullWidth
-          endAdornment={
-            <InputAdornment position='end'>
-              <IconButton
-                aria-label='toggle password visibility'
-                onClick={handleClickShowPassword}
-                edge='end'
-                size='small'
-              >
-                {showCode ? <Visibility fontSize='small' /> : <VisibilityOff fontSize='small' />}
-              </IconButton>
-            </InputAdornment>
-        }
           labelWidth={40}
         />
+
+        {errorMsg.length > 0 && <ErrorText>{errorMsg}</ErrorText>}
+        {message.length > 0 && <Text>{message}</Text>}
+
         <StyledButton
           color='primary'
-          disabled={isDisabled}
+          disabled={isDisable}
+          onClick={handleSubmit}
         >
           Zatwierdź kod
         </StyledButton>
         <StyledButton
           color='secondary'
+          onClick={handleResend}
         >
           Nie otrzymałem/am kodu
         </StyledButton>
       </FormControl>
     </VerificationScreenWrapper>
   )
+}
+
+EmailVerification.propTypes = {
+  email: PropTypes.string,
+  id: PropTypes.string
+}
+
+EmailVerification.defaultProps = {
+  email: '',
+  id: ''
 }
