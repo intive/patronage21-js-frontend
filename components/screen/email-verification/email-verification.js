@@ -28,9 +28,13 @@ export default function EmailVerification ({ email, id }) {
 
     try {
       const res = await API.put('activate', { body: { email: email, activationCode: +code } })
-      res.ok ? router.push('/rejestracja-sukces') : setErrorMsg('Wprowadzony kod jest niepoprawny')
+
+      if (res.ok) {
+        setMessage(res.body)
+        router.push('/rejestracja-sukces')
+      } else setErrorMsg(res.body)
     } catch {
-      setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponwnie')
+      setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponownie')
     }
   }
 
@@ -42,7 +46,7 @@ export default function EmailVerification ({ email, id }) {
       const res = await API.post(`sendActivationCode/${id}`)
       res.ok ? setMessage(res.body) : setErrorMsg(res.body)
     } catch {
-      setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponwnie')
+      setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponownie')
     }
   }
 
@@ -66,8 +70,8 @@ export default function EmailVerification ({ email, id }) {
           labelWidth={40}
         />
 
-        {errorMsg.length > 0 && <ErrorText>{errorMsg}</ErrorText>}
-        {message.length > 0 && <Text>{message}</Text>}
+        {errorMsg?.length > 0 && <ErrorText>{errorMsg}</ErrorText>}
+        {message?.length > 0 && <Text>{message}</Text>}
 
         <StyledButton
           color='primary'
