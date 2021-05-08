@@ -16,10 +16,12 @@ export default function EmailVerification ({ email, id }) {
     setIsDisable(code.length !== 8)
   }, [code])
 
+  const isCharValid = (code) => code.length <= 8 && !code.match(' ') && !isNaN(code)
+
   const handleInput = (e) => {
     const code = e.target.value
 
-    code.length <= 8 && !isNaN(code) && setCode(code)
+    isCharValid(code) && setCode(code)
     code.length < 8 ? setErrorMsg('Wprowadzony kod jest zbyt krótki') : setErrorMsg('')
   }
 
@@ -32,7 +34,7 @@ export default function EmailVerification ({ email, id }) {
       if (res.ok) {
         setMessage(res.body)
         router.push('/rejestracja-sukces')
-      } else setErrorMsg(res.body)
+      } else setErrorMsg(typeof res.body === 'string' ? res.body : res.body.fields.activationCode)
     } catch {
       setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponownie')
     }
