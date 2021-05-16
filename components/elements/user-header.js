@@ -1,12 +1,12 @@
 import React from 'react'
 import IconButton from '@material-ui/core/IconButton'
 import PersonIcon from '@material-ui/icons/Person'
-import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import { fade } from '@material-ui/core/styles'
 import styled from 'styled-components'
 import SearchBar from './search'
 import AppHeader from './app-header'
+import DropDownMenu from './dropdown-menu'
 
 const Buttons = styled.div`
   ${({ theme }) => `
@@ -23,19 +23,15 @@ const Buttons = styled.div`
 
 export default function UserHeader () {
   return (
-    <AppHeader>
+    <AppHeader useLogoRedirect>
       <SearchBar>
         <SearchIcon />
       </SearchBar>
-
       <Buttons>
         <IconButton>
           <PersonIcon />
         </IconButton>
-
-        <IconButton>
-          <MenuIcon />
-        </IconButton>
+        <DropDownMenu />
       </Buttons>
     </AppHeader>
   )

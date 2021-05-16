@@ -5,7 +5,7 @@ import UserHeader from '../elements/user-header'
 import Content from '../elements/content'
 
 const Layout = ({ withNavigation = true, children }) => {
-  const header = withNavigation ? <UserHeader /> : <AppHeader />
+  const header = withNavigation ? <UserHeader /> : <AppHeader useLogoRedirect={false} />
   return (
     <>
       <Head>
