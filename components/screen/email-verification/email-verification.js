@@ -5,6 +5,8 @@ import { Email, ErrorText, Header, Information, Label, StyledButton, Text, Verif
 import { useRouter } from 'next/router'
 import { API } from '../../../helpers/api'
 
+const CODE_LENGTH = 8
+
 export default function EmailVerification ({ email, id }) {
   const [code, setCode] = useState('')
   const [isDisable, setIsDisable] = useState(true)
@@ -13,16 +15,16 @@ export default function EmailVerification ({ email, id }) {
   const router = useRouter()
 
   useEffect(() => {
-    setIsDisable(code.length !== 8)
+    setIsDisable(code.length !== CODE_LENGTH)
   }, [code])
 
-  const isCharValid = (code) => code.length <= 8 && !code.match(' ') && !isNaN(code)
+  const isCharValid = (code) => code.length <= CODE_LENGTH && !code.match(' ') && !isNaN(code)
 
   const handleInput = (e) => {
     const code = e.target.value
 
     isCharValid(code) && setCode(code)
-    code.length < 8 ? setErrorMsg('Wprowadzony kod jest zbyt krótki') : setErrorMsg('')
+    code.length < CODE_LENGTH ? setErrorMsg('Kod jest za krótki') : setErrorMsg('')
   }
 
   const handleSubmit = async () => {
