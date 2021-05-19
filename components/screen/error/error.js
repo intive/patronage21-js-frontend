@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
-import { ErrorScreenWrapper, StyledButton, ErrorTitle, StyledImage } from './style'
-import Image from 'next/image'
+import { ErrorScreenWrapper, StyledButton, ErrorTitle } from './style'
+import Patrocat from '../../elements/patrocat'
 
 export default function ErrorPage ({ title, description, buttonTitle, buttonHref, isReturn }) {
   const router = useRouter()
@@ -23,9 +23,7 @@ export default function ErrorPage ({ title, description, buttonTitle, buttonHref
         >
           Wróć
         </StyledButton>}
-      <StyledImage>
-        <Image src='/patronage-error.svg' alt='Patronage error' width={300} height={300} />
-      </StyledImage>
+      <Patrocat isSad />
     </ErrorScreenWrapper>
   )
 }
