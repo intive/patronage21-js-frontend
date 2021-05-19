@@ -12,8 +12,8 @@ export default function Patrocat ({ width = 300, height = 300, isSad }) {
   return (
     <StyledImage>
       {isSad
-        ? <Image src='/logo-error.svg' alt='Patrocat error' width={width} height={height} />
-        : <Image src='/logo.svg' alt='Patrocat' width={width} height={height} />}
+        ? <Image src='/patronage-cat-error.svg' alt='Patrocat error' width={width} height={height} />
+        : <Image src='/patronage-cat.svg' alt='Patrocat' width={width} height={height} />}
     </StyledImage>
   )
 };
