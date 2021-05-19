@@ -20,14 +20,14 @@ export default function EmailVerification ({ email, id }) {
 
   const isCharValid = (code) => code.length <= CODE_LENGTH && !code.match(' ') && !isNaN(code)
 
-  const isFirstCharZero = (code) => code.length === 1 && code === '0'
+  const isFirstCharZero = (code) => code[0] === '0'
 
   const handleInput = (e) => {
     const code = e.target.value
 
     if (isCharValid(code)) {
       if (isFirstCharZero(code)) {
-        setErrorMsg('Kod nie można zaczynać się od 0')
+        setErrorMsg('Kodu nie można zaczynać od 0')
       } else {
         setCode(code)
         code.length < CODE_LENGTH ? setErrorMsg('Kod jest za krótki') : setErrorMsg('')
