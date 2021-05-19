@@ -20,9 +20,3 @@ export const SuccessButton = withStyles({
     padding: '10px 30px'
   }
 })(Button)
-
-export const SuccessImage = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 25px;
-`
