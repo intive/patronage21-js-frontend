@@ -11,6 +11,11 @@ export const Description = styled.div`
     font-size: 16px;
     margin-bottom: 25px;
 `
+export const StyledImage = styled.div`
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
+`
 export const SuccessButton = withStyles({
   root: {
     textTransform: 'capitalize',

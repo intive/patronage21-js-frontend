@@ -1,4 +1,4 @@
-import { SuccessPageWrapper, Title, Description, SuccessButton } from './style.js'
+import { SuccessPageWrapper, Title, Description, SuccessButton, StyledImage } from './style.js'
 import Link from 'next/link'
 import PropTypes from 'prop-types'
 import Patrocat from '../elements/patrocat'
@@ -11,7 +11,9 @@ export default function SuccessPage ({ title, description, buttonLabel, buttonRe
       <Link href={buttonRedirect} passHref>
         <SuccessButton variant='contained' color='primary'>{buttonLabel}</SuccessButton>
       </Link>
-      <Patrocat />
+      <StyledImage>
+        <Patrocat />
+      </StyledImage>
     </SuccessPageWrapper>
   )
 }

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { ErrorScreenWrapper, StyledButton, ErrorTitle } from './style'
+import { ErrorScreenWrapper, StyledButton, ErrorTitle, StyledImage } from './style'
 import Patrocat from '../../elements/patrocat'
 
 export default function ErrorPage ({ title, description, buttonTitle, buttonHref, isReturn }) {
@@ -23,7 +23,9 @@ export default function ErrorPage ({ title, description, buttonTitle, buttonHref
         >
           Wróć
         </StyledButton>}
-      <Patrocat isSad />
+      <StyledImage>
+        <Patrocat isSad />
+      </StyledImage>
     </ErrorScreenWrapper>
   )
 }
