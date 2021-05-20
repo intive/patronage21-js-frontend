@@ -14,8 +14,9 @@ export const StyledButton = styled(Button)`
     width: 250px;
     margin-top: 20px;
   `
+
 export const StyledImage = styled.div`
-  display:flex;
-  margin-top: 20px;
-  justify-content: flex-end;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 25px;
 `

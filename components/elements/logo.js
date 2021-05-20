@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import Typography from '@material-ui/core/Typography'
 
@@ -14,10 +15,25 @@ const StyledTypography = styled(Typography).attrs({
   width: 100%;
 `
 
-export default function Logo () {
+const Text = styled.span`
+&:hover{
+  cursor: ${({ cursorType }) => cursorType};
+}
+`
+
+export default function Logo ({ useLogoRedirect }) {
+  const router = useRouter()
+
+  const handleNavigation = () => {
+    if (useLogoRedirect) {
+      router.push('/')
+    }
+  }
   return (
     <StyledTypography>
-      <StyledSpan>Patron</StyledSpan>-a-<StyledSpan>tive</StyledSpan>
+      <Text onClick={handleNavigation} cursorType={useLogoRedirect ? 'pointer' : 'auto'}>
+        <StyledSpan>Patron</StyledSpan>-a-<StyledSpan>tive</StyledSpan>
+      </Text>
     </StyledTypography>
   )
 }

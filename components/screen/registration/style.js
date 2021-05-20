@@ -18,7 +18,7 @@ export const LogoContainer = styled.div`
     right: 20px;
   }
 `
-export const Logo = styled.img`
+export const LogoWrapper = styled.div`
   margin: 0 auto;
   width: 50%;
   height: 50%;

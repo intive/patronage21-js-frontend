@@ -5,6 +5,8 @@ import { Email, ErrorText, Header, Information, Label, StyledButton, Text, Verif
 import { useRouter } from 'next/router'
 import { API } from '../../../helpers/api'
 
+const CODE_LENGTH = 8
+
 export default function EmailVerification ({ email, id }) {
   const [code, setCode] = useState('')
   const [isDisable, setIsDisable] = useState(true)
@@ -13,14 +15,24 @@ export default function EmailVerification ({ email, id }) {
   const router = useRouter()
 
   useEffect(() => {
-    setIsDisable(code.length !== 8)
+    setIsDisable(code.length !== CODE_LENGTH)
   }, [code])
+
+  const isCharValid = (code) => code.length <= CODE_LENGTH && !code.match(' ') && !isNaN(code)
+
+  const isFirstCharZero = (code) => code.length === 1 && code === '0'
 
   const handleInput = (e) => {
     const code = e.target.value
 
-    code.length <= 8 && !isNaN(code) && setCode(code)
-    code.length < 8 ? setErrorMsg('Wprowadzony kod jest zbyt krótki') : setErrorMsg('')
+    if (isCharValid(code)) {
+      if (isFirstCharZero(code)) {
+        setErrorMsg('Kod nie można zaczynać się od 0')
+      } else {
+        setCode(code)
+        code.length < CODE_LENGTH ? setErrorMsg('Kod jest za krótki') : setErrorMsg('')
+      }
+    }
   }
 
   const handleSubmit = async () => {
@@ -32,7 +44,7 @@ export default function EmailVerification ({ email, id }) {
       if (res.ok) {
         setMessage(res.body)
         router.push('/rejestracja-sukces')
-      } else setErrorMsg(res.body)
+      } else setErrorMsg(typeof res.body === 'string' ? res.body : res.body.fields.activationCode)
     } catch {
       setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponownie')
     }

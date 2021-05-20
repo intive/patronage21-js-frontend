@@ -20,7 +20,7 @@ import {
   StyledFormControlLabel,
   StyledCheckbox,
   StyledMenuItem,
-  Logo,
+  LogoWrapper,
   LogoContainer
 } from './style'
 import {
@@ -35,6 +35,7 @@ import { ExpandMore } from '@material-ui/icons'
 import { API } from '../../../helpers/api'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Patrocat from '../../elements/patrocat'
 
 export default function FormRegistration () {
   const router = useRouter()
@@ -103,19 +104,21 @@ export default function FormRegistration () {
   }
 
   const showTechnologyRelatedError =
-  formik.touched.technologies && formik.errors.technologies
-    ? <ErrorText>{formik.errors.technologies}</ErrorText>
-    : null
+    formik.touched.technologies && formik.errors.technologies
+      ? <ErrorText>{formik.errors.technologies}</ErrorText>
+      : null
 
   const showRegulationsRelatedError =
-  formik.touched.regulations && formik.errors.regulations
-    ? <ErrorText>{formik.errors.regulations}</ErrorText>
-    : null
+    formik.touched.regulations && formik.errors.regulations
+      ? <ErrorText>{formik.errors.regulations}</ErrorText>
+      : null
 
   return (
     <>
       <LogoContainer>
-        <Logo src='/patronage-cat.svg' alt='logo' />
+        <LogoWrapper>
+          <Patrocat width='400' height='400' />
+        </LogoWrapper>
       </LogoContainer>
       <Subtitle>Zgłoś się do programu Patronative już dziś!</Subtitle>
       <Text>Wystarczy, że wypełnisz poniższy formularz zgłoszeniowy.</Text>
