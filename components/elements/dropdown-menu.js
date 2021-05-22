@@ -40,7 +40,7 @@ export default function DropDownMenu () {
           'aria-labelledby': 'basic-button'
         }}
       >
-        <NavItem onClick={() => redirectTo('/')}>Stona główna</NavItem>
+        <NavItem onClick={() => redirectTo('/')}>Strona główna</NavItem>
         <NavItem onClick={() => redirectTo('/kalendarz')}>Kalendarz</NavItem>
         <NavItem onClick={() => redirectTo('/rejestracja')}>Rejestracja</NavItem>
       </Menu>
