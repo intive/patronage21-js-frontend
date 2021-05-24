@@ -6,7 +6,7 @@ const NotFoundPage = () => {
     <Layout withNavigation={false}>
       <ErrorPage
         title='Wystąpił błąd 404'
-        description='Wprowadzony adres URL nie istnieje'
+        description='Strona o podanym adresie nie została odnaleziona'
         buttonTitle='Strona główna'
         buttonHref='/'
         isReturn
