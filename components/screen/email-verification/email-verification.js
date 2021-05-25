@@ -39,7 +39,7 @@ export default function EmailVerification ({ email, id }) {
     setMessage('')
 
     try {
-      const res = await API.put('activate', { body: { email: email, activationCode: +code } })
+      const res = await API.put('activate', { body: { email: email, activationCode: code } })
 
       if (res.ok) {
         setMessage(res.body)
