@@ -20,18 +20,12 @@ export default function EmailVerification ({ email, id }) {
 
   const isCharValid = (code) => code.length <= CODE_LENGTH && !code.match(' ') && !isNaN(code)
 
-  const isFirstCharZero = (code) => code.length === 1 && code === '0'
-
   const handleInput = (e) => {
     const code = e.target.value
 
     if (isCharValid(code)) {
-      if (isFirstCharZero(code)) {
-        setErrorMsg('Kod nie można zaczynać się od 0')
-      } else {
-        setCode(code)
-        code.length < CODE_LENGTH ? setErrorMsg('Kod jest za krótki') : setErrorMsg('')
-      }
+      setCode(code)
+      code.length < CODE_LENGTH ? setErrorMsg('Kod jest za krótki') : setErrorMsg('')
     }
   }
 
@@ -42,9 +36,9 @@ export default function EmailVerification ({ email, id }) {
       const res = await API.put('activate', { body: { email: email, activationCode: code } })
 
       if (res.ok) {
-        setMessage(res.body)
+        setMessage(res.body.general[0])
         router.push('/rejestracja-sukces')
-      } else setErrorMsg(typeof res.body === 'string' ? res.body : res.body.fields.activationCode)
+      } else setErrorMsg(res.body.general[0])
     } catch {
       setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponownie')
     }
@@ -56,7 +50,8 @@ export default function EmailVerification ({ email, id }) {
 
     try {
       const res = await API.post(`sendActivationCode/${id}`)
-      res.ok ? setMessage(res.body) : setErrorMsg(res.body)
+
+      res.ok ? setMessage(res.body.general[0]) : setErrorMsg(res.body.general[0])
     } catch {
       setErrorMsg('Błąd podczas wysyłania kodu, spróbuj ponownie')
     }
