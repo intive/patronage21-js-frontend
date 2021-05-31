@@ -8,7 +8,7 @@ export const validationSchema = () => yup.object().shape({
   firstName: yup.string()
     .min(2, 'Imię jest za krótkie')
     .max(30, 'Imię jest za długie')
-    .matches(/^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\s]+$/, 'Imię może zawierać jedynie litery')
+    .matches(/^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$/, 'Imię może zawierać jedynie litery')
     .required('Wpisz imię'),
 
   lastName: yup.string()
