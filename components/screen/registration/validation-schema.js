@@ -56,6 +56,6 @@ export const validationSchema = () => yup.object().shape({
     .oneOf([true], 'Zaakceptuj regulamin.'),
 
   information: yup.boolean()
-    .oneOf([true], 'Zaakceptuj informację.')
+    .oneOf([true], 'Zaakceptuj informacje.')
 
 })
