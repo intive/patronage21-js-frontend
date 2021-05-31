@@ -14,7 +14,7 @@ export const validationSchema = () => yup.object().shape({
   lastName: yup.string()
     .min(2, 'Nazwisko jest za krótkie')
     .max(30, 'Nazwisko jest za długie')
-    .matches(/^[a-zA-Z]+$/, 'Nazwisko może zawierać jedynie litery')
+    .matches(/^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\s-]+$/, 'Nazwisko może zawierać jedynie litery')
     .required('Wpisz nazwisko'),
 
   email: yup.string()
