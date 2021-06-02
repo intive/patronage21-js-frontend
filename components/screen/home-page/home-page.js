@@ -14,7 +14,7 @@ export default function HomePage () {
           <Code fontSize='large' />
           Grupy technologiczne
         </TileButton>
-        <TileButton variant='outlined' disabled>
+        <TileButton variant='outlined' onClick={() => router.push('http://intive-patronage.pl')}>
           <People fontSize='large' />
           Użytkownicy
         </TileButton>

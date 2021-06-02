@@ -43,6 +43,7 @@ export default function DropDownMenu () {
         <NavItem onClick={() => redirectTo('/')}>Strona główna</NavItem>
         <NavItem onClick={() => redirectTo('/kalendarz')}>Kalendarz</NavItem>
         <NavItem onClick={() => redirectTo('/rejestracja')}>Rejestracja</NavItem>
+        <NavItem onClick={() => redirectTo('http://intive-patronage.pl')}>Użytkownicy</NavItem>
       </Menu>
     </>
   )
