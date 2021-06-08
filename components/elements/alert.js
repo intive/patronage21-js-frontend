@@ -9,14 +9,22 @@ const Transition = React.forwardRef(function Transition (props, ref) {
 })
 
 const StyledDialogTitle = styled(DialogTitle)`
-    & .MuiTypography-h6 {
-        text-align: center
-    }
+  & .MuiTypography-h6 {
+    text-align: center;
+    font-size: 12px
+  }
+`
+
+const StyledDialogContent = styled(DialogContent)`
+  & .MuiTypography-body1 {
+    font-size: 12px
+  }
 `
 
 const OkButton = styled(Button)`
   width: 50%;
   margin: 0px auto;
+  font-size: 12px;
 `
 
 export default function Alert ({ alert: { title, text } }) {
@@ -37,11 +45,11 @@ export default function Alert ({ alert: { title, text } }) {
         aria-describedby='alert-dialog-slide-description'
       >
         <StyledDialogTitle id='alert-dialog-slide-title'>{title}</StyledDialogTitle>
-        <DialogContent>
+        <StyledDialogContent>
           <DialogContentText id='alert-dialog-slide-description'>
             {text}
           </DialogContentText>
-        </DialogContent>
+        </StyledDialogContent>
         <DialogActions>
           <OkButton onClick={handleClose} color='primary'>
             OK
