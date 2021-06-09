@@ -1,11 +1,10 @@
-import { useContext } from 'react';
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import { fade } from '@material-ui/core/styles'
 import { DateContext } from './calendar'
 import dayjs from 'dayjs'
-import { SubmitButton } from '../screen/registration/style';
-
+import { SubmitButton } from '../screen/registration/style'
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,13 +32,13 @@ const Cell = styled.div`
   border-radius: 10px;
   font-weight: bold;
   font-size: 16px;
-  color: ${({ isDisabled }) => isDisabled ? "grey" : "black"};
+  color: ${({ isDisabled }) => isDisabled ? 'grey' : 'black'};
   background: ${props => {
-    if (props.isSelected) return fade(props.theme.palette.secondary.main, .2);
-    
-    return props.isCurrent ? props.theme.palette.secondary.main : "none"
+    if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
+
+    return props.isCurrent ? props.theme.palette.secondary.main : 'none'
   }};
-  cursor: ${({ isDisabled }) => isDisabled ? "not-allowed" : "pointer"};
+  cursor: ${({ isDisabled }) => isDisabled ? 'not-allowed' : 'pointer'};
   //border: 1px solid red;
 `
 
@@ -56,41 +55,43 @@ const Li = styled.div`
   height: 10px;
 `
 
-const weekDays = "Pn, Wt, Śr, Cz, Pt, Sb, Nd".split(", ");
+const weekDays = 'Pn, Wt, Śr, Cz, Pt, Sb, Nd'.split(', ')
 
+export default function View () {
+  const router = useRouter()
+  const { state, setState } = useContext(DateContext)
+  const { currentDate: date } = state
 
-export default function View() {
-  const router = useRouter();
-  const {state, setState } = useContext(DateContext);
-  const { currentDate: date } = state;
-
-  const getPrev = (value = 1) => date.subtract(value, 'month');
+  const getPrev = (value = 1) => date.subtract(value, 'month')
 
   const handleSelect = day => () => {
-    if (day.month() !== state.currentDate.month()) return;
+    if (day.month() !== state.currentDate.month()) return
     setState(prev => ({
       ...prev,
       selectedDay: day
     }))
   }
 
-  const handleAdd = day => () => {
-    router.push(`/#${day.format("DD-MM-YYYY")}`)
+  const handleDetail = day => () => {
+    router.push(`/#${day.format('DD-MM-YYYY')}`)
+  }
+
+  const handleAdd = () => {
+    router.push('/nowe-wydarzenie')
   }
 
   const renderDays = () => {
-    const dayObj = state.currentDate.clone();
+    const dayObj = state.currentDate.clone()
     const thisYear = dayObj.year()
     const thisMonth = dayObj.month() // (January as 0, December as 11)
     const daysInMonth = dayObj.daysInMonth()
     const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
-    const lastDay = dayjs(`${thisYear}-${thisMonth + 1}-${daysInMonth}`);
-    const dayL = lastDay.day();
+    const lastDay = dayjs(`${thisYear}-${thisMonth + 1}-${daysInMonth}`)
+    const dayL = lastDay.day()
 
-    const day = firstDay.day();
-    const prevMonthDays = getPrev().daysInMonth();
+    const day = firstDay.day()
     const days = []
-    for (let i = -day; i < daysInMonth + (7 - dayL); i++ ) {
+    for (let i = -day; i < daysInMonth + (7 - dayL); i++) {
       if (i < 0) {
         days.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + 2)}`))
       }
@@ -100,27 +101,27 @@ export default function View() {
       }
     }
 
-    days.sort((a,b) => a.unix() -b.unix());
+    days.sort((a, b) => a.unix() - b.unix())
 
     return days.map(date => (
-        <Cell
-          key={date.unix()}
-          isCurrent={date.isToday()}
-          isSelected={date.isSame(state.selectedDay)}
-          isDisabled={date.month() !== state.currentDate.month()}
-          onClick={handleSelect(date)}
-          onDoubleClick={handleAdd(date)}
-        >
-          {date.format("DD")}
-        </Cell>
-      ))
+      <Cell
+        key={date.unix()}
+        isCurrent={date.isToday()}
+        isSelected={date.isSame(state.selectedDay)}
+        isDisabled={date.month() !== state.currentDate.month()}
+        onClick={handleSelect(date)}
+        onDoubleClick={handleDetail(date)}
+      >
+        {date.format('DD')}
+      </Cell>
+    ))
   }
 
   const weekdays = () => {
     return (
       <Ul>
         {weekDays.map(weekday => (
-        <Li>{weekday}</Li>
+          <Li key={weekday}>{weekday}</Li>
         ))}
       </Ul>
     )
@@ -129,10 +130,13 @@ export default function View() {
   return (
     <Wrapper>
       {weekdays()}
-       <Grid>
-         {renderDays()}
-       </Grid>
-      <SubmitButton type='submit' color='primary'
+      <Grid>
+        {renderDays()}
+      </Grid>
+      <SubmitButton
+        type='text'
+        color='primary'
+        onClick={handleAdd}
       > Dodaj nowe wydarzenie
       </SubmitButton>
     </Wrapper>

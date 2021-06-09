@@ -1,6 +1,6 @@
 import { useContext } from 'react'
-import styled from 'styled-components';
-import { DateContext } from './calendar';
+import styled from 'styled-components'
+import { DateContext } from './calendar'
 import { Subtitle, Text } from '../../components/screen/registration/style'
 
 const NavButton = styled('div')`
@@ -55,12 +55,12 @@ const DateButton = styled('div')`
     `}
 `
 
-export default function Header() {
-  const {state, setState } = useContext(DateContext);
-  const { currentDate: date } = state;
+export default function Header () {
+  const { state, setState } = useContext(DateContext)
+  const { currentDate: date } = state
 
   const generateButtonTxt = (d) => (
-    `01-${d.daysInMonth()}.${d.format("MM.YYYY")}`
+    `01-${d.daysInMonth()}.${d.format('MM.YYYY')}`
   )
 
   const getPrev = (value = 1) => date.subtract(value, 'month')
@@ -79,12 +79,12 @@ export default function Header() {
       <Subtitle>Kalendarz</Subtitle>
       <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
       <NavWrapper>
-        <NavButton onClick={changeDate(getPrev(2))}>{"<"}</NavButton>
-        <DateButton onClick={changeDate(getPrev())}>{ generateButtonTxt(getPrev()) }</DateButton>
-        <DateButtonColor onClick={changeDate(date)}>{ generateButtonTxt(date) }</DateButtonColor>
-        <DateButton onClick={changeDate(getNext())}>{ generateButtonTxt(getNext()) }</DateButton>
-        <NavButton  onClick={changeDate(getNext(2))}>{">"}</NavButton>
+        <NavButton onClick={changeDate(getPrev(2))}>{'<'}</NavButton>
+        <DateButton onClick={changeDate(getPrev())}>{generateButtonTxt(getPrev())}</DateButton>
+        <DateButtonColor onClick={changeDate(date)}>{generateButtonTxt(date)}</DateButtonColor>
+        <DateButton onClick={changeDate(getNext())}>{generateButtonTxt(getNext())}</DateButton>
+        <NavButton onClick={changeDate(getNext(2))}>{'>'}</NavButton>
       </NavWrapper>
-     </div>
+    </div>
   )
 }

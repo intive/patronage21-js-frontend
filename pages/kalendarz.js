@@ -1,4 +1,4 @@
-import Layout from '../components/layout';
+import Layout from '../components/layout'
 import Kalendarz from '../components/calendar'
 
 export default function Calendar () {
