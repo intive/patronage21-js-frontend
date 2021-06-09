@@ -67,7 +67,6 @@ export default function Header () {
   const getNext = (value = 1) => date.add(value, 'month')
 
   const changeDate = date => () => {
-    console.log(date)
     setState(prev => ({
       ...prev,
       currentDate: date
