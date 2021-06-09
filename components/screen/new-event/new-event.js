@@ -12,7 +12,7 @@ import { ReturnButton, StyledTextArea } from './style'
 import { useFormik } from 'formik'
 import { validationSchema } from './validation-schema'
 import { API } from '../../../helpers/api'
-import Alert from '../../elements/alert';
+import Alert from '../../elements/alert'
 
 export default function FormNewEvent () {
   const dayjs = require('dayjs')
