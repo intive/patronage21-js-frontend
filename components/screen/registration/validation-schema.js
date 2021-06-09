@@ -8,13 +8,13 @@ export const validationSchema = () => yup.object().shape({
   firstName: yup.string()
     .min(2, 'Imię jest za krótkie')
     .max(30, 'Imię jest za długie')
-    .matches(/^[a-zA-Z]+$/, 'Imię może zawierać jedynie litery')
+    .matches(/^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ]+$/, 'Imię może zawierać jedynie litery')
     .required('Wpisz imię'),
 
   lastName: yup.string()
     .min(2, 'Nazwisko jest za krótkie')
     .max(30, 'Nazwisko jest za długie')
-    .matches(/^[a-zA-Z]+$/, 'Nazwisko może zawierać jedynie litery')
+    .matches(/^[A-Za-zżźćńółęąśŻŹĆĄŚĘŁÓŃ\s-]+$/, 'Nazwisko może zawierać jedynie litery')
     .required('Wpisz nazwisko'),
 
   email: yup.string()
@@ -53,7 +53,9 @@ export const validationSchema = () => yup.object().shape({
     .required('Powtórz hasło'),
 
   regulations: yup.boolean()
-    .oneOf([true], 'Musisz zaakceptować regulamin.'),
+    .oneOf([true], 'Zaakceptuj regulamin.'),
 
   information: yup.boolean()
+    .oneOf([true], 'Zaakceptuj informacje.')
+
 })

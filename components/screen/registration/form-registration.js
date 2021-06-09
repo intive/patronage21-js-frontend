@@ -113,6 +113,11 @@ export default function FormRegistration () {
       ? <ErrorText>{formik.errors.regulations}</ErrorText>
       : null
 
+  const showInformationsRelatedError =
+    formik.touched.information && formik.errors.information
+      ? <ErrorText>{formik.errors.information}</ErrorText>
+      : null
+
   return (
     <>
       <LogoContainer>
@@ -215,6 +220,7 @@ export default function FormRegistration () {
                      />}
             label={regulations}
           />
+          {showInformationsRelatedError}
           <StyledFormControlLabel
             control={<StyledCheckbox
               name='information'
