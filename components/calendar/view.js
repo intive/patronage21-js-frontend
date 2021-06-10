@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   margin-bottom: 50px;
 `
 
+
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -32,21 +33,28 @@ const Cell = styled.div`
   border-radius: 10px;
   font-weight: bold;
   font-size: 16px;
-  color: ${({ isDisabled }) => isDisabled ? 'grey' : 'black'};
   background: ${props => {
-    if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
-
-    return props.isCurrent ? props.theme.palette.secondary.main : 'none'
+  if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
+  return props.isCurrent ? props.theme.palette.secondary.main : 'none'
+}};
+  color: ${props => {
+    if (props.isSelected) return props.theme.palette.secondary.main
+    if (props.isCurrent) return 'white'
+    return props.isDisabled ? 'grey' : 'black'
   }};
   cursor: ${({ isDisabled }) => isDisabled ? 'not-allowed' : 'pointer'};
   //border: 1px solid red;
 `
 
-const Ul = styled.div`
+const Ul = styled('div')`
+ ${({ theme }) => `
   display:flex;
   font-size: 16px;
   flex-direction: row;
-  margin: 20px 0;
+  // margin: 20px 0;
+  padding:20px 0;
+  border-bottom: 1px solid ${fade(theme.customPalette.input.label, 0.3)};
+    `}
 `
 const Li = styled.div`
   width: 100%;
@@ -81,9 +89,9 @@ export default function View () {
   }
 
   const renderDays = () => {
-    const dayObj = state.currentDate.clone()
+    const dayObj = state.currentDate
     const thisYear = dayObj.year()
-    const thisMonth = dayObj.month() // (January as 0, December as 11)
+    const thisMonth = dayObj.month()
     const daysInMonth = dayObj.daysInMonth()
     const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
     const lastDay = dayjs(`${thisYear}-${thisMonth + 1}-${daysInMonth}`)
@@ -100,12 +108,13 @@ export default function View () {
         days.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
       }
     }
+    console.log(days)
 
     days.sort((a, b) => a.unix() - b.unix())
 
-    return days.map(date => (
+    return days.map((date, i) => (
       <Cell
-        key={date.unix()}
+        key={i}
         isCurrent={date.isToday()}
         isSelected={date.isSame(state.selectedDay)}
         isDisabled={date.month() !== state.currentDate.month()}
