@@ -13,7 +13,6 @@ const Wrapper = styled.div`
   margin-bottom: 50px;
 `
 
-
 const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -34,20 +33,19 @@ const Cell = styled.div`
   font-weight: bold;
   font-size: 16px;
   background: ${props => {
-  if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
-  return props.isCurrent ? props.theme.palette.secondary.main : 'none'
-}};
+    if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
+    return props.isCurrent ? props.theme.palette.secondary.main : 'none'
+  }};
   color: ${props => {
     if (props.isSelected) return props.theme.palette.secondary.main
     if (props.isCurrent) return 'white'
     return props.isDisabled ? 'grey' : 'black'
   }};
   cursor: ${({ isDisabled }) => isDisabled ? 'not-allowed' : 'pointer'};
-  //border: 1px solid red;
 `
 
 const Ul = styled('div')`
- ${({ theme }) => `
+  ${({ theme }) => `
   display:flex;
   font-size: 16px;
   flex-direction: row;
@@ -58,7 +56,7 @@ const Ul = styled('div')`
 `
 const Li = styled.div`
   width: 100%;
-  list-style-type: none; 
+  list-style-type: none;
   padding: 15px;
   height: 10px;
 `
@@ -108,7 +106,6 @@ export default function View () {
         days.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
       }
     }
-    console.log(days)
 
     days.sort((a, b) => a.unix() - b.unix())
 
