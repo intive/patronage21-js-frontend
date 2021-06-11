@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { fade } from '@material-ui/core/styles'
 import { DateContext } from './calendar'
 import dayjs from 'dayjs'
-import { SubmitButton } from '../screen/registration/style'
+import { SubmitButton } from '../../screen/registration/style'
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,14 +33,14 @@ const Cell = styled.div`
   font-weight: bold;
   font-size: 16px;
   background: ${props => {
-    if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
-    return props.isCurrent ? props.theme.palette.secondary.main : 'none'
-  }};
+  if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
+  return props.isCurrent ? props.theme.palette.secondary.main : 'none'
+}};
   color: ${props => {
-    if (props.isSelected) return props.theme.palette.secondary.main
-    if (props.isCurrent) return 'white'
-    return props.isDisabled ? 'grey' : 'black'
-  }};
+  if (props.isSelected) return props.theme.palette.secondary.main
+  if (props.isCurrent) return 'white'
+  return props.isDisabled ? 'grey' : 'black'
+}};
   cursor: ${({ isDisabled }) => isDisabled ? 'not-allowed' : 'pointer'};
 `
 
@@ -90,16 +90,16 @@ export default function View () {
     const dayObj = state.currentDate
     const thisYear = dayObj.year()
     const thisMonth = dayObj.month()
-    const daysInMonth = dayObj.daysInMonth()
     const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
-    const lastDay = dayjs(`${thisYear}-${thisMonth + 1}-${daysInMonth}`)
-    const dayL = lastDay.day()
 
     const day = firstDay.day()
     const days = []
-    for (let i = -day; i < daysInMonth + (7 - dayL); i++) {
+
+    const max = day ? 36 - day : 35
+
+    for (let i = -day + 1; i <= max; i++) {
       if (i < 0) {
-        days.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + 2)}`))
+        days.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day - 1)}`))
       }
 
       if (i > 0) {

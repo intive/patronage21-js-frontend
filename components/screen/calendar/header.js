@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { DateContext } from './calendar'
-import { Subtitle, Text } from '../../components/screen/registration/style'
+import { Subtitle, Text } from '../registration/style'
 
 const NavButton = styled('div')`
    ${({ theme }) => `
@@ -78,11 +78,11 @@ export default function Header () {
       <Subtitle>Kalendarz</Subtitle>
       <Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</Text>
       <NavWrapper>
-        <NavButton onClick={changeDate(getPrev(2))}>{'<'}</NavButton>
+        <NavButton onClick={changeDate(getPrev(1))}>{'<'}</NavButton>
         <DateButton onClick={changeDate(getPrev())}>{generateButtonTxt(getPrev())}</DateButton>
         <DateButtonColor onClick={changeDate(date)}>{generateButtonTxt(date)}</DateButtonColor>
         <DateButton onClick={changeDate(getNext())}>{generateButtonTxt(getNext())}</DateButton>
-        <NavButton onClick={changeDate(getNext(2))}>{'>'}</NavButton>
+        <NavButton onClick={changeDate(getNext(1))}>{'>'}</NavButton>
       </NavWrapper>
     </div>
   )

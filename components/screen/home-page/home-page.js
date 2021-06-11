@@ -22,7 +22,7 @@ export default function HomePage () {
           <MenuBook fontSize='large' />
           Dzienniczek
         </TileButton>
-        <TileButton variant='outlined' onClick={() => router.push('/kalendarz')}>
+        <TileButton variant='outlined' onClick={() => router.push('/kalendarz/kalendarz')}>
           <Today fontSize='large' />
           Kalendarz
         </TileButton>
