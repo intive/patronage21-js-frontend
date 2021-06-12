@@ -24,7 +24,6 @@ export default function FormNewEvent () {
   const handleSubmit = async (data) => {
     try {
       const res = await API.post('events', { body: data })
-      console.log(res)
       if (res.ok) {
         setAlert({
           title: 'Sukces!',

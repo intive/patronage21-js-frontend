@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@material-ui/core'
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core'
 
 import styled from 'styled-components'
 import Button from './button'
-
-const Transition = React.forwardRef(function Transition (props, ref) {
-  return <Slide direction='down' ref={ref} {...props} />
-})
 
 const StyledDialogTitle = styled(DialogTitle)`
   & .MuiTypography-h6 {
@@ -23,7 +19,7 @@ const StyledDialogContent = styled(DialogContent)`
 
 const OkButton = styled(Button)`
   width: 50%;
-  margin: 0px auto;
+  margin: 0 auto;
   font-size: 12px;
 `
 
@@ -38,7 +34,6 @@ export default function Alert ({ alert: { title, text } }) {
     <div>
       <Dialog
         open={open}
-        TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-labelledby='alert-dialog-slide-title'
