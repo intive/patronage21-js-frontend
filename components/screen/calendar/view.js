@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { fade } from '@material-ui/core/styles'
 import { DateContext } from './calendar'
 import dayjs from 'dayjs'
-import { SubmitButton } from '../../screen/registration/style'
+import { SubmitButton } from '../screen/registration/style'
 
 const Wrapper = styled.div`
   display: flex;
@@ -33,14 +33,14 @@ const Cell = styled.div`
   font-weight: bold;
   font-size: 16px;
   background: ${props => {
-  if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
-  return props.isCurrent ? props.theme.palette.secondary.main : 'none'
-}};
+    if (props.isSelected) return fade(props.theme.palette.secondary.main, 0.2)
+    return props.isCurrent ? props.theme.palette.secondary.main : 'none'
+  }};
   color: ${props => {
-  if (props.isSelected) return props.theme.palette.secondary.main
-  if (props.isCurrent) return 'white'
-  return props.isDisabled ? 'grey' : 'black'
-}};
+    if (props.isSelected) return props.theme.palette.secondary.main
+    if (props.isCurrent) return 'white'
+    return props.isDisabled ? 'grey' : 'black'
+  }};
   cursor: ${({ isDisabled }) => isDisabled ? 'not-allowed' : 'pointer'};
 `
 
@@ -86,28 +86,32 @@ export default function View () {
     router.push('/nowe-wydarzenie')
   }
 
+  const mapWeekDay = [6, 0, 1,2,3,4,5]
+
   const renderDays = () => {
     const dayObj = state.currentDate
     const thisYear = dayObj.year()
     const thisMonth = dayObj.month()
     const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
 
-    const day = firstDay.day()
-    const days = []
+    const day = mapWeekDay[firstDay.day()]
+    const daysAfter = [];
+    const daysBefore = []
+    for (let i = -day; i <= 42 - day; i++) {
 
-    const max = day ? 36 - day : 35
-
-    for (let i = -day + 1; i <= max; i++) {
       if (i < 0) {
-        days.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day - 1)}`))
+        daysBefore.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day)}`))
       }
 
       if (i > 0) {
-        days.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
+        daysAfter.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
       }
+
     }
 
-    days.sort((a, b) => a.unix() - b.unix())
+    daysBefore.sort((a, b) => a.unix() - b.unix())
+
+    const days = [...daysBefore, ...daysAfter];
 
     return days.map((date, i) => (
       <Cell
