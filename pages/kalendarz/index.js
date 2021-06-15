@@ -1,9 +1,10 @@
 import Layout from '../../components/layout'
+import Kalendarz from '../../components/screen/calendar/calendar'
 
 export default function Calendar () {
   return (
     <Layout>
-      <p>Kalendarz</p>
+      <Kalendarz />
     </Layout>
   )
 }
