@@ -172,13 +172,19 @@ export default function FormNewEvent () {
         <StyledTextArea
           name='description'
           id='description'
-          label='Opis'
+          label={
+              formik.touched.description && formik.errors.description
+                ? formik.errors.description
+                : 'Opis'
+          }
+          error={formik.touched.description && Boolean(formik.errors.description)}
           color='secondary'
           multiline
           rows={4}
           variant='outlined'
           value={formik.values.description}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
         />
         <SubmitButton type='submit' color='primary' disabled={isDisabled}>
           Dodaj do kalendarza
