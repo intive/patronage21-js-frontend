@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { fade } from '@material-ui/core/styles'
 import { DateContext } from './calendar'
 import dayjs from 'dayjs'
-import { SubmitButton } from "../registration/style"
+import { SubmitButton } from '../registration/style'
 
 const Wrapper = styled.div`
   display: flex;
