@@ -118,6 +118,8 @@ export default function FormRegistration () {
       ? <ErrorText>{formik.errors.information}</ErrorText>
       : null
 
+  const labelForTitleField = formik.touched.title && formik.errors.title ? formik.errors.title : 'Tytuł'
+
   return (
     <>
       <LogoContainer>
@@ -128,14 +130,19 @@ export default function FormRegistration () {
       <Subtitle>Zgłoś się do programu Patronative już dziś!</Subtitle>
       <Text>Wystarczy, że wypełnisz poniższy formularz zgłoszeniowy.</Text>
       <Form onSubmit={formik.handleSubmit}>
-        <StyledFormControl variant='outlined' size='small'>
-          <InputLabel id='title-label' color='secondary'>Tytuł</InputLabel>
+        <StyledFormControl
+          variant='outlined'
+          size='small'
+          error={formik.touched.title && Boolean(formik.errors.title)}
+        >
+          <InputLabel id='title-label' color='secondary'>{labelForTitleField}</InputLabel>
           <Select
             name='title'
             onChange={formik.handleChange}
             value={formik.values.title}
-            label='Tytuł'
-            labelId='title-select-label'
+            onBlur={formik.handleBlur}
+            label={labelForTitleField}
+            labelId='title-label'
             id='title-select'
             color='secondary'
             inputProps={{ MenuProps: { disableScrollLock: true } }}
