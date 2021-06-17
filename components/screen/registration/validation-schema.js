@@ -3,7 +3,8 @@ import * as yup from 'yup'
 export const validationSchema = () => yup.object().shape({
 
   title: yup.string()
-    .oneOf(['Pan', 'Pani']),
+    .oneOf(['Pan', 'Pani'])
+    .required('Uzupełnij zwrot grzecznościowy'),
 
   firstName: yup.string()
     .min(2, 'Imię jest za krótkie')
