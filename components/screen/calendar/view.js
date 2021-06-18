@@ -15,8 +15,8 @@ const Wrapper = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(4, 1fr);
   gap: 15px;
   grid-template-areas:
     ". . . . . . ."
@@ -28,7 +28,7 @@ const Grid = styled.div`
 const Cell = styled.div`
   width: 100%;
   height: 100px;
-  padding: 15px;
+  padding: 5px;
   border-radius: 10px;
   font-weight: bold;
   font-size: 16px;
@@ -61,6 +61,27 @@ const Li = styled.div`
   height: 10px;
 `
 
+const EventsList = styled.div`
+  font-size: 11px;
+  padding: 5px;
+  margin: auto 0;
+`
+
+const Event = styled.div`
+  margin: 2px 0;
+`
+
+const Details = styled.p`
+  margin: 0;
+  text-overflow: ellipsis; 
+  overflow: hidden;
+  white-space: nowrap;
+`
+
+const Text = styled.p`
+  margin: 0;
+`
+
 const weekDays = 'Pn, Wt, Śr, Cz, Pt, Sb, Nd'.split(', ')
 
 export default function View () {
@@ -87,6 +108,45 @@ export default function View () {
   }
 
   const mapWeekDay = [6, 0, 1, 2, 3, 4, 5]
+
+  const eventTime = (start, end) => {
+    const startTime = dayjs(start).format('HH:mm')
+    const endTime = dayjs(end).format('HH:mm')
+    const time = `${startTime}-${endTime}`
+    return time
+  }
+
+  const isThereAnEvent = day => {
+    return state.events.some(event => {
+      const date = dayjs(event.startDate).format('YYYY-MM-DD')
+      return dayjs(date).isSame(day, 'day')
+    })
+  }
+
+  const filterList = day => {
+    const filteredList = state.events.filter(event => {
+      const date = dayjs(event.startDate).format('YYYY-MM-DD')
+      return date === day
+    })
+    return filteredList
+  }
+
+  const renderEventList = day => {
+    if (isThereAnEvent(day)) {
+      const filteredList = filterList(day)
+      return (
+        <>
+          <Event>
+            <Details>{eventTime(filteredList[0].startDate, filteredList[0].endDate)}</Details>
+            <Details>{filteredList[0].title}</Details>
+          </Event>
+          {filteredList.length > 1 && <Text>+ więcej wydarzeń</Text>}
+        </>
+      )
+    } else {
+      return <Text>Brak wydarzeń</Text>
+    }
+  }
 
   const renderDays = () => {
     const dayObj = state.currentDate
@@ -121,6 +181,9 @@ export default function View () {
         onDoubleClick={handleDetail(date)}
       >
         {date.format('DD')}
+        <EventsList>
+          {renderEventList(date.format('YYYY-MM-DD'))}
+        </EventsList>
       </Cell>
     ))
   }

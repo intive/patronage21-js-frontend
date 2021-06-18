@@ -7,10 +7,11 @@ import isToday from 'dayjs/plugin/isToday'
 dayjs.extend(isToday)
 export const DateContext = createContext(null)
 
-export default function Calendar () {
+export default function Calendar ({ events }) {
   const [state, setState] = useState({
     currentDate: dayjs(),
-    selectedDay: null
+    selectedDay: null,
+    events: events
   })
 
   return (
