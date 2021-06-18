@@ -79,11 +79,11 @@ export default function View () {
   }
 
   const handleDetail = day => () => {
-    router.push(`/#${day.format('DD-MM-YYYY')}`)
+    router.push(`/kalendarz/${day.format('YYYY-MM-DD')}`)
   }
 
   const handleAdd = () => {
-    router.push('/nowe-wydarzenie')
+    router.push('/kalendarz/nowe-wydarzenie')
   }
 
   const mapWeekDay = [6, 0, 1, 2, 3, 4, 5]
