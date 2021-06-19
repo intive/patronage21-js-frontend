@@ -6,5 +6,6 @@ export const API = new Frisbee({
     Accept: 'application/json',
     'Content-Type': 'application/json'
   },
-  mode: 'cors'
+  mode: 'cors',
+  credentials: 'include'
 })
