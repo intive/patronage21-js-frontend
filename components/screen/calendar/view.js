@@ -99,30 +99,38 @@ export default function View () {
   const { state, setState } = useContext(DateContext)
   const { currentDate: date } = state
   const [events, setEvents] = useState([])
+  const [days, setDays] = useState([])
 
-  const mapWeekDay = [6, 0, 1, 2, 3, 4, 5]
-  const getPrev = (value = 1) => date.subtract(value, 'month')
-  const dayObj = state.currentDate
-  const thisYear = dayObj.year()
-  const thisMonth = dayObj.month()
-  const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
-  const day = mapWeekDay[firstDay.day()]
-  const daysAfter = []
-  const daysBefore = []
-  for (let i = -day; i <= 42 - day; i++) {
-    if (i < 0) {
-      daysBefore.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day)}`))
+  useEffect(() => {
+    const handleDaysGenerated = () => {
+      const mapWeekDay = [6, 0, 1, 2, 3, 4, 5]
+      const getPrev = (value = 1) => date.subtract(value, 'month')
+      const dayObj = state.currentDate
+      const thisYear = dayObj.year()
+      const thisMonth = dayObj.month()
+      const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
+      const day = mapWeekDay[firstDay.day()]
+      const daysAfter = []
+      const daysBefore = []
+ 
+      for (let i = -day; i <= 42 - day; i++) {
+        if (i < 0) {
+          daysBefore.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day)}`))
+        }
+ 
+        if (i > 0) {
+          daysAfter.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
+        }
+      }
+ 
+      daysBefore.sort((a, b) => a.unix() - b.unix())
+ 
+      setDays([...daysBefore, ...daysAfter])
     }
-
-    if (i > 0) {
-      daysAfter.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
-    }
-  }
-
-  daysBefore.sort((a, b) => a.unix() - b.unix())
-
-  const days = [...daysBefore, ...daysAfter]
-
+ 
+    handleDaysGenerated()
+  }, [date])
+  
   useEffect(() => {
     const fetchEvents = async () => {
       const firstDay = days[0]
@@ -131,8 +139,8 @@ export default function View () {
       const listOfEvents = res.ok ? res.body : []
       setEvents(listOfEvents)
     }
-    fetchEvents()
-  }, [date])
+    days.length > 0 && fetchEvents()
+  }, [days])
 
   const handleSelect = day => () => {
     if (day.month() !== state.currentDate.month()) return
