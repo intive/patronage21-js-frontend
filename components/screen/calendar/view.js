@@ -112,25 +112,25 @@ export default function View () {
       const day = mapWeekDay[firstDay.day()]
       const daysAfter = []
       const daysBefore = []
- 
+
       for (let i = -day; i <= 42 - day; i++) {
         if (i < 0) {
           daysBefore.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day)}`))
         }
- 
+
         if (i > 0) {
           daysAfter.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
         }
       }
- 
+
       daysBefore.sort((a, b) => a.unix() - b.unix())
- 
+
       setDays([...daysBefore, ...daysAfter])
     }
- 
+
     handleDaysGenerated()
   }, [date])
-  
+
   useEffect(() => {
     const fetchEvents = async () => {
       const firstDay = days[0]
