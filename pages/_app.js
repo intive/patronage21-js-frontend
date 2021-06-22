@@ -3,6 +3,7 @@ import { RecoilRoot } from 'recoil'
 import { ThemeProvider } from 'styled-components'
 import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@material-ui/core'
 import { StylesProvider } from '@material-ui/core/styles'
+import { CookiesProvider } from 'react-cookie'
 import GlobalStyle from '../styles/global'
 import theme from '../styles/theme'
 
@@ -14,6 +15,7 @@ export default function App ({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])
+
   return (
     <>
       <StylesProvider injectFirst>
@@ -22,7 +24,9 @@ export default function App ({ Component, pageProps }) {
             <CssBaseline />
             <GlobalStyle />
             <RecoilRoot>
-              <Component {...pageProps} />
+              <CookiesProvider>
+                <Component {...pageProps} />
+              </CookiesProvider>
             </RecoilRoot>
           </ThemeProvider>
         </MuiThemeProvider>

@@ -12,11 +12,13 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "cookie": "^0.4.1",
     "dayjs": "^1.10.5",
     "formik": "^2.2.6",
     "frisbee": "^3.1.4",
     "next": "^10.2.0",
     "react": "^16.8.0",
+    "react-cookie": "^4.0.3",
     "react-dom": "^16.8.0",
     "react-is": "^16.8.0",
     "recoil": "^0.1.3",
