@@ -3,7 +3,7 @@ import ErrorPage from '../components/screen/error/error'
 
 const UnauthorizedPage = () => {
   return (
-    <Layout withNavigation={false}>
+    <Layout withNavigation={true}>
       <ErrorPage
         title='Wystąpił błąd 401'
         description='Nie masz dostępu do strony o podanym adresie'

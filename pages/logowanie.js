@@ -3,7 +3,7 @@ import LogInForm from '../components/screen/log-in-form'
 
 export default function LogInUser () {
   return (
-    <Layout withNavigation={false}>
+    <Layout withNavigation={true}>
       <LogInForm />
     </Layout>
   )

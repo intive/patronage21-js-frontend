@@ -10,9 +10,6 @@ export default function Calendar (props) {
   const router = useRouter()
 
   useEffect(() => {
-    console.log(props)
-    console.log(hasCookie)
-
     if (!hasCookie) {
       handleRedirect(router.push('/401'))
     }
@@ -28,5 +25,10 @@ export default function Calendar (props) {
 const handleRedirect = async (route) => await route
 
 export const getServerSideProps = async ({ req: { headers: { cookie } } }) => {
-  return handleCookie(cookie)
+  const parsedCookie = handleCookie(cookie)
+  return {
+    props: {
+      parsedCookie
+    }
+  }
 }

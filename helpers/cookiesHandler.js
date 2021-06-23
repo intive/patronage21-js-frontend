@@ -12,12 +12,8 @@ export default function handleCookie (biscuit) {
   const parsedCookie = parseCookies(biscuit)
 
   if (verifyCookie(parsedCookie)) {
-    return {
-      props: { parsedCookie }
-    }
+    return parsedCookie
   }
 
-  return {
-    props: {}
-  }
+  return null
 }
