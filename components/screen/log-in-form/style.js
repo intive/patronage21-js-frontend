@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Button from '../../elements/button'
-import { TextField } from '@material-ui/core'
+import { TextField, FormControl } from '@material-ui/core'
 
 export const LogInWrapper = styled.div`
   width: 100%;
@@ -15,6 +15,7 @@ export const Header = styled.h2`
   font-size: 18px;
   color: ${({ theme }) => theme.customPalette.colors.secondary};
 `
+
 export const Text = styled.p`
   margin: 10px 0;
   font-size: 14px;
@@ -29,13 +30,18 @@ export const Form = styled.form`
   flex-direction: column;
 `
 
+export const StyledFormControl = styled(FormControl).attrs({
+  variant: 'outlined',
+  size: 'small'
+})`
+  margin: 12px 0;
+`
+
 export const Input = styled(TextField).attrs({
   color: 'secondary',
   size: 'small',
-  variant: 'outlined',
-  type: 'text'
+  variant: 'outlined'
 })` 
-  margin: 12px 0;
   width: 100%;
 `
 

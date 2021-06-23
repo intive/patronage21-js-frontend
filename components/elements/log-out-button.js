@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { API } from '../../helpers/api'
 import PersonIcon from '@material-ui/icons/Person'
-import Tooltip from '@material-ui/core/Tooltip'
-import { IconButton } from '@material-ui/core'
+import { IconButton, Tooltip } from '@material-ui/core'
 import Alert from './alert'
 
 export default function ArrowTooltips () {
