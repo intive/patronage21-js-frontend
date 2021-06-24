@@ -1,10 +1,11 @@
-import { useContext } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import styled from 'styled-components'
 import { fade } from '@material-ui/core/styles'
 import { DateContext } from './calendar'
 import dayjs from 'dayjs'
 import { SubmitButton } from '../registration/style'
+import { API } from '../../../helpers/api'
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,8 +16,8 @@ const Wrapper = styled.div`
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(4, 1fr);
   gap: 15px;
   grid-template-areas:
     ". . . . . . ."
@@ -25,10 +26,14 @@ const Grid = styled.div`
     ". . . . . . .";
 `
 
+const Text = styled.p`
+  margin: 0;
+`
+
 const Cell = styled.div`
   width: 100%;
   height: 100px;
-  padding: 15px;
+  padding: 5px;
   border-radius: 10px;
   font-weight: bold;
   font-size: 16px;
@@ -42,6 +47,15 @@ const Cell = styled.div`
     return props.isDisabled ? 'grey' : 'black'
   }};
   cursor: ${({ isDisabled }) => isDisabled ? 'not-allowed' : 'pointer'};
+  ${Text} {
+    color: ${props => {
+      if (props.isCurrent) {
+        return ({ theme }) => theme.palette.primary.contrastText
+      } else {
+        return ({ theme }) => theme.customPalette.text.secondary
+      }
+    }}
+  }
 `
 
 const Ul = styled('div')`
@@ -61,14 +75,72 @@ const Li = styled.div`
   height: 10px;
 `
 
+const EventsList = styled.div`
+  font-size: 11px;
+  padding: 5px;
+  margin: auto 0;
+`
+
+const Event = styled.div`
+  margin: 2px 0;
+`
+
+const Details = styled.p`
+  margin: 0;
+  text-overflow: ellipsis; 
+  overflow: hidden;
+  white-space: nowrap;
+`
+
 const weekDays = 'Pn, Wt, Śr, Cz, Pt, Sb, Nd'.split(', ')
 
 export default function View () {
   const router = useRouter()
   const { state, setState } = useContext(DateContext)
   const { currentDate: date } = state
+  const [events, setEvents] = useState([])
+  const [days, setDays] = useState([])
 
-  const getPrev = (value = 1) => date.subtract(value, 'month')
+  useEffect(() => {
+    const handleDaysGenerated = () => {
+      const mapWeekDay = [6, 0, 1, 2, 3, 4, 5]
+      const getPrev = (value = 1) => date.subtract(value, 'month')
+      const dayObj = state.currentDate
+      const thisYear = dayObj.year()
+      const thisMonth = dayObj.month()
+      const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
+      const day = mapWeekDay[firstDay.day()]
+      const daysAfter = []
+      const daysBefore = []
+
+      for (let i = -day; i <= 42 - day; i++) {
+        if (i < 0) {
+          daysBefore.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day)}`))
+        }
+
+        if (i > 0) {
+          daysAfter.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
+        }
+      }
+
+      daysBefore.sort((a, b) => a.unix() - b.unix())
+
+      setDays([...daysBefore, ...daysAfter])
+    }
+
+    handleDaysGenerated()
+  }, [date])
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const firstDay = days[0]
+      const lastDay = days[days.length - 1]
+      const res = await API.get(`events/list/${firstDay}/${lastDay}`)
+      const listOfEvents = res.ok ? res.body : []
+      setEvents(listOfEvents)
+    }
+    days.length > 0 && fetchEvents()
+  }, [days])
 
   const handleSelect = day => () => {
     if (day.month() !== state.currentDate.month()) return
@@ -86,31 +158,46 @@ export default function View () {
     router.push('/kalendarz/nowe-wydarzenie')
   }
 
-  const mapWeekDay = [6, 0, 1, 2, 3, 4, 5]
+  const eventTime = (start, end) => {
+    const startTime = dayjs(start).format('HH:mm')
+    const endTime = dayjs(end).format('HH:mm')
+    const time = `${startTime}-${endTime}`
+    return time
+  }
+
+  const isThereAnEvent = day => {
+    return events.some(event => {
+      const date = dayjs(event.startDate).format('YYYY-MM-DD')
+      return dayjs(date).isSame(day, 'day')
+    })
+  }
+
+  const filterList = day => {
+    const filteredList = events.filter(event => {
+      const date = dayjs(event.startDate).format('YYYY-MM-DD')
+      return date === day
+    })
+    return filteredList
+  }
+
+  const renderEventList = day => {
+    if (isThereAnEvent(day)) {
+      const filteredList = filterList(day)
+      return (
+        <>
+          <Event>
+            <Details>{eventTime(filteredList[0].startDate, filteredList[0].endDate)}</Details>
+            <Details>{filteredList[0].title}</Details>
+          </Event>
+          {filteredList.length > 1 && <Details>+ więcej wydarzeń</Details>}
+        </>
+      )
+    } else {
+      return <Text>Brak wydarzeń</Text>
+    }
+  }
 
   const renderDays = () => {
-    const dayObj = state.currentDate
-    const thisYear = dayObj.year()
-    const thisMonth = dayObj.month()
-    const firstDay = dayjs(`${thisYear}-${thisMonth + 1}-1`)
-
-    const day = mapWeekDay[firstDay.day()]
-    const daysAfter = []
-    const daysBefore = []
-    for (let i = -day; i <= 42 - day; i++) {
-      if (i < 0) {
-        daysBefore.push(dayjs(`${thisYear}-${getPrev().month() + 1}-${getPrev().daysInMonth() - (i + day)}`))
-      }
-
-      if (i > 0) {
-        daysAfter.push(dayjs(`${thisYear}-${thisMonth + 1}-${i}`))
-      }
-    }
-
-    daysBefore.sort((a, b) => a.unix() - b.unix())
-
-    const days = [...daysBefore, ...daysAfter]
-
     return days.map((date, i) => (
       <Cell
         key={i}
@@ -121,6 +208,9 @@ export default function View () {
         onDoubleClick={handleDetail(date)}
       >
         {date.format('DD')}
+        <EventsList>
+          {renderEventList(date.format('YYYY-MM-DD'))}
+        </EventsList>
       </Cell>
     ))
   }
