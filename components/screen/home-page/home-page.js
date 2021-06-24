@@ -18,7 +18,7 @@ export default function HomePage () {
           <People fontSize='large' />
           Użytkownicy
         </TileButton>
-        <TileButton variant='outlined' disabled>
+        <TileButton variant='outlined' onClick={() => router.push('http://intive-patronage.pl:90')}>
           <MenuBook fontSize='large' />
           Dzienniczek
         </TileButton>
