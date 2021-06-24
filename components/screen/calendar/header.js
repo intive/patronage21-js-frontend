@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import styled from 'styled-components'
 import { DateContext } from './calendar'
-import { Subtitle } from '../registration/style'
 
 const NavButton = styled('div')`
    ${({ theme }) => `
@@ -75,7 +74,6 @@ export default function Header () {
 
   return (
     <div>
-      <Subtitle>Kalendarz</Subtitle>
       <NavWrapper>
         <NavButton onClick={changeDate(getPrev(1))}>{'<'}</NavButton>
         <DateButton onClick={changeDate(getPrev())}>{generateButtonTxt(getPrev())}</DateButton>
