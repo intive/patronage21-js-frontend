@@ -12,6 +12,7 @@ const Layout = ({ withNavigation = true, children }) => {
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
         <meta charSet='utf-8' />
         <link rel='preconnect' href='https://fonts.gstatic.com' />
+        <link rel='shortcut icon' href='/favicon.png' />
         <link href='https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap' rel='stylesheet' />
         <title>Patron-a-tive</title>
       </Head>
